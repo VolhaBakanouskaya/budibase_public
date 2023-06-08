@@ -71,6 +71,7 @@ const INITIAL_FRONTEND_STATE = {
   customTheme: {},
   previewDevice: "desktop",
   highlightedSettingKey: null,
+  propertyFocus: null,
   builderSidePanel: false,
   hasLock: true,
 
@@ -118,7 +119,7 @@ export const getFrontendStore = () => {
     },
     initialise: async pkg => {
       const { layouts, screens, application, clientLibPath, hasLock } = pkg
-      websocket = createBuilderWebsocket()
+      websocket = createBuilderWebsocket(application.appId)
       await store.actions.components.refreshDefinitions(application.appId)
 
       // Reset store state
@@ -1324,6 +1325,12 @@ export const getFrontendStore = () => {
         store.update(state => ({
           ...state,
           highlightedSettingKey: key,
+        }))
+      },
+      propertyFocus: key => {
+        store.update(state => ({
+          ...state,
+          propertyFocus: key,
         }))
       },
     },
