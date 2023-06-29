@@ -1,5 +1,6 @@
 <script>
   import {
+    keepOpen,
     Input,
     Button,
     Label,
@@ -159,7 +160,7 @@
   async function saveColumn() {
     savingColumn = true
     if (errors?.length) {
-      return
+      return keepOpen
     }
 
     let saveColumn = cloneDeep(editableColumn)
